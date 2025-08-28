@@ -32,29 +32,33 @@
                       </tr>
                   </thead>
                   <tbody>
-                      @forelse ($inventories as $item)
+                      @forelse ($inventories as $inventory)
                           <tr>
-                              <td class="text-center">{{ $item->id }}</td>
+                              <td class="text-center">{{ $inventory->id }}</td>
                               
-                              <td>{{ $item->name }}</td>
-                              <td>{{ $item->user->name }}</td>
-                              <td>{{ $item->user->email }}</td>
-                              <td class="text-center">{{ $item->qty }}</td>
-                              <td class="text-end">{{ number_format($item->price, 2) }}</td>
-                              <td>{{ $item->description }}</td>
-                              <td>{{ $item->created_at->format('d/m/Y H:i') }}</td>
-                              <td>{{ $item->updated_at->format('d/m/Y H:i') }}</td>
+                              <td>{{ $inventory->name }}</td>
+                              <td>{{ $inventory->user->name }}</td>
+                              <td>{{ $inventory->user->email }}</td>
+                              <td class="text-center">{{ $inventory->qty }}</td>
+                              <td class="text-end">{{ number_format($inventory->price, 2) }}</td>
+                              <td>{{ $inventory->description }}</td>
+                              <td>{{ $inventory->created_at->format('d/m/Y H:i') }}</td>
+                              <td>{{ $inventory->updated_at->format('d/m/Y H:i') }}</td>
                               <td class="text-center">
-                                <a href="{{ route('inventory.show', $item->id) }}" class="btn btn-sm btn-info">Show</a>
-              <a href="{{ route('inventory.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                @can("view", $inventory) 
+                                <a href="{{ route('inventory.show', $inventory->id) }}" class="btn btn-sm btn-info">Show</a>
+                                @endcan
+                             @can("update", $inventory)    
+              <a href="{{ route('inventory.edit', $inventory->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                              @endcan
               <!-- Trigger Modal -->
-              <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $item->id }}">
+              <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $inventory->id }}">
                 Padam
               </button>
             </td>
                           </tr>
                           <!-- Modal Popup -->
-          <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
+          <div class="modal fade" id="deleteModal{{ $inventory->id }}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
@@ -62,11 +66,11 @@
                   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                  Adakah anda pasti mahu padam <strong>{{ $item->name }}</strong>?
+                  Adakah anda pasti mahu padam <strong>{{ $inventory->name }}</strong>?
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                  <form action="{{ route('inventory.destroy', $item->id) }}" method="POST" class="d-inline">
+                  <form action="{{ route('inventory.destroy', $inventory->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Ya, Padam</button>

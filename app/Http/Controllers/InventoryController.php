@@ -65,6 +65,8 @@ class InventoryController extends Controller
      */
     public function show(Inventory $inventory)
     {
+        $this->authorize('view', $inventory);
+
         return view('inventories.show', compact('inventory'));
     }
 
@@ -73,7 +75,9 @@ class InventoryController extends Controller
      */
     public function edit(Inventory $inventory)
     {
+        $this->authorize('update', $inventory);
         // dd( $inventory);
+        $this->authorize('update', $inventory);
         return view('inventories.edit', compact('inventory'));
     }
 

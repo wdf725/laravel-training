@@ -6,10 +6,10 @@
 <div class="container mt-5">
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Borang Kemaskini Inventory</h4>
+            <h4 class="mb-0">Borang Kemaskini Pengguna</h4>
         </div>
         <div class="card-body">
-            <form action="{{ route('users.update',$user->id) }}" method="POST">
+            <form action="{{ route('user.update',$user->id) }}" method="POST">
                 @csrf
                 
                 <div class="mb-3">
@@ -18,15 +18,15 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Kuantiti</label>
-                    <input type="number" value="{{ $user->email }}" name="qty" class="form-control" placeholder="Contoh: 10" required>
+                    <label class="form-label">Email</label>
+                    <input type="email" value="{{ $user->email }}" name="email" class="form-control" placeholder="Contoh: 10" required>
                 </div>
  
  
 
                 <div class="text-end">
-                    <button type="submit" class="btn btn-warning">Edit Inventory</button>
-                    <a href="{{ route('users.index') }}" class="btn btn-secondary">Kembali</a>
+                    <button type="submit" class="btn btn-warning">Kemaskini</button>
+                    <a href="{{ route('user.index') }}" class="btn btn-secondary">Kembali</a>
                 </div>
             </form>
         </div>

@@ -41,3 +41,8 @@ Route::prefix('users')->name('user.')->group(function () {
     Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
     Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
 });
+//route for user profile group  
+Route::prefix('profile')->name('profile.')->group(function () {
+    Route::get('/', [UserController::class, 'profile'])->name('index');
+    Route::post('/update', [UserController::class, 'update_profile'])->name('update');
+});

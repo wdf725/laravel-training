@@ -69,10 +69,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $User)
+    public function edit($id)
     {
-        // dd( $User);
-        return view('users.edit', compact('User'));
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -80,15 +80,13 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         $User = User::findOrFail($id);
+        $User = User::findOrFail($id);
         $User->update([
         'name' => $request->name,
-        'qty' => $request->qty,
-        'price' => $request->price,
-        'description' => $request->description,
+        'email' => $request->email,
     ]);
 
-    return redirect()->route('User.index')->with('success', 'User berjaya dikemaskini.');
+    return redirect()->route('user.index')->with('success', 'User berjaya dikemaskini.');
     }
 
     /**
@@ -103,7 +101,7 @@ class UserController extends Controller
     $User->delete();
 
     // Redirect balik dengan mesej berjaya
-    return redirect()->route('User.index')->with('success', 'User berjaya dipadam.');
+    return redirect()->route('user.index')->with('success', 'User berjaya dipadam.');
 }
 
 }
